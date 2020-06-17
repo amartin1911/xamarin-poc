@@ -10,8 +10,7 @@ pool:
   vmImage: 'macos-latest'
 
 variables:
-  buildConfiguration: 'Release'
-  outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+  group: android-pipeline
 
 steps:
 - task: NuGetToolInstaller@1
