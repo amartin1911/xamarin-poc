@@ -24,3 +24,23 @@ steps:
     projectFile: '**/*droid*.csproj'
     outputDirectory: '$(outputDirectory)'
     configuration: '$(buildConfiguration)'
+
+- task: AndroidSigning@3
+  inputs:
+    apkFiles: '**/*.apk'
+    apksignerKeystoreFile: 'amartin1911.keystore'
+    apksignerKeystorePassword: '$(keystore.password)'
+    apksignerKeystoreAlias: '$(key.alias)'
+    apksignerKeyPassword: '$(key.password)'
+    apksignerArguments: '--out $(outputDirectory)/WorkingWithColors.release.apk'
+    
+- task: AppCenterDistribute@3
+  inputs:
+    serverEndpoint: 'VSAppCenter'
+    appSlug: '$(appSlug)'
+    appFile: '$(outputDirectory)/WorkingWithColors.release.apk'
+    symbolsOption: 'Android'
+    releaseNotesOption: 'input'
+    releaseNotesInput: 'its baked baby'
+    destinationType: 'groups'
+    distributionGroupId: '$(distributionGroupId)'
